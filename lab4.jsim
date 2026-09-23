@@ -1,10 +1,6 @@
 *******************************************************************************
-* As with the previous labs, replace this header comment using the following
-* format. (Team name, then members in "Last Name, First Name" format sorted
-* by last name.)
-*
 * LAB #4
-* The Phantom Thieves
+* The Short Circuits
 * - Bangco, Phoebe Hannah
 * - Linchangco, Ricki Rose
 * - Maranan, Erin Clare
@@ -19,10 +15,10 @@
 *******************************************************************************
 .subckt fa a b c_in sum c_out
     Xxor1 a b axorb xor2
-    Xxor2 axorb carry_in sum xor2
+    Xxor2 axorb c_in sum xor2
     Xnand1 a b term1 nand2
-    Xnand2 carry_in axorb term2 nand2
-    Xnand3 term1 term2 carry nand2
+    Xnand2 c_in axorb term2 nand2
+    Xnand3 term1 term2 c_out nand2
 .ends
 
 .subckt add32 a[31:0] b[31:0] cin0 sum[31:0] cout[31:30]
@@ -32,10 +28,19 @@
 *******************************************************************************
 * Your new counter32 subcircuit code should go here.
 *******************************************************************************
+
 .subckt counter32 reset a[31:0] f[31:0] clk
-  ********
-  * Replace these comments with your code.
-  ********
+  *ADD32
+  Xfa a[31:0] f[31:0] 0 sum[31:0] c31 c30 add32
+
+  *MULTIPLEXER
+  Xmux reset#32 sum[31:0] d1[31:0] z[31:0] mux2
+
+  *D REGISTER
+  Xdreg z[31:0] clk#32 f[31:0] dreg
+
+  .connect 0 d1[31:0]
+
 .ends
 
 *******************************************************************************
