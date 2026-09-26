@@ -6,6 +6,20 @@
 * - Maranan, Erin Clare
 *******************************************************************************
 
+*******************************************************************************
+* We hereby attest to the truth of the following facts:
+*
+* We have not discussed the JSim code in our program with anyone
+* other than our instructor or the teaching assistants assigned to this course.
+*
+* We have not used JSim code obtained from another student, or
+* any other unauthorized source, whether modified or unmodified.
+*
+* If any JSim code or documentation used in our program was
+* obtained from another source, it has been clearly noted with citations in the
+* comments of our program.
+*******************************************************************************
+
 .include "8clocks.jsim"
 .include "nominal.jsim"
 .include "stdcell.jsim"
@@ -65,6 +79,8 @@ Xcounter32 reset incr[31:0] reg[31:0] clk1 counter32
 * and then goes to the next value every 50ns.
 * The values "1 0 0 0 1 0" indicate that the reset signal only turns on twice.
 * (But at which times?)
+*   - The first "1" is at 14.8ns to 64.8ns, and the second "1" is at 214.8ns to
+*     264.8ns.
 *******************************************************************************
 Wreset reset nrz(0, 5, 50ns, 14.8ns, 0.001ns, 0.001ns)
 + 1 0 0 0 1 0
