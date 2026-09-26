@@ -108,3 +108,40 @@ Wincr incr[31:0] nrz(0, 5, 50ns, 0ns, 0.001ns, 0.001ns)
 .plot sd(incr[31:0])
 .plot clk1
 .plot sd(reg[31:0])
+
+*******************************************************************************
+* GUIDE QUESTIONS:
+*
+* a. Explain the behavior of the 32-bit register output lines, reg[31:0], as it 
+*   is incrementing, decrementing, and resetting.
+*   - In particular, explain the significant delay between when the reset/
+*     incr[31:0] values change and when the output displays an updated value.
+*
+*   ANSWER:
+*     When incrementing and decrementing, reg[31:0] updates its output value with 
+*     the sum of its previous value and the increment/decrement value (incr[31:0])
+*     on every positive clock edge. When resetting, the multiplexer selects the 
+*     reset value (0) and updates the output of reg[31:0] to 0 on the next positive 
+*     clock edge. The significant delay between when the reset/incr[31:0] values 
+*     change and when the output displays an updated value is due to how the D 
+*     flip-flop register only updates its output on the positive edge of the clock 
+*     signal. When the reset or increment values change and the clock is low or 
+*     after the positive edge of the clock, the output remains unchanged until the 
+*     next positive clock edge. Additionally, the propagation delay of the logic 
+*     gates in the circuit can also contribute to the delay in updating the output.
+*
+* b. What is stopping you from using a super-fast clock to make a super-fast counter?
+*
+*   ANSWER:
+*     Using a super-fast clock to make a super-fast counter is limited by the 
+*     propagation delay of the logic gates in the circuit. As the clock frequency 
+*     increases, the available time for the signals to propagate through the gates 
+*     decreases. This leads to the sub-circuits not having enough time to settle their
+*     final values before the next clock edge occurs, resulting in incorrect or unstable
+*     output values. For instance, even when the 2nd reset occured right before the 
+*     positive clock edge in this simulation, the output of reg[31:0] did not update to 0
+*     and outputted 11 instead until the next positive clock edge becuase the inputs did 
+*     not have enough time to propagate through the circuit and update the value of the 
+*     register before the next clock edge. Therefore, the maximum clock frequency is 
+*     constrained by the slowest path/critical path of the circuit.
+*******************************************************************************
